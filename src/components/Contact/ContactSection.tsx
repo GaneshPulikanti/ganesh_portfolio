@@ -6,7 +6,9 @@ import { FileText, Copy, Check, Send } from "lucide-react";
 export const ContactSection: React.FC = () => {
   const [copied, setCopied] = useState(false);
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+  const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
 
   const emailAddress = "the.ganeshpulikanti@gmail.com";
 
@@ -16,10 +18,30 @@ export const ContactSection: React.FC = () => {
     setTimeout(() => setCopied(false), 2500);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 4000);
+    setLoading(true);
+    setErrorMsg("");
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      if (res.ok) {
+        setSubmitted(true);
+        setFormData({ name: "", email: "", message: "" });
+        setTimeout(() => setSubmitted(false), 5000);
+      } else {
+        setErrorMsg("Failed to transmit. Please email directly.");
+      }
+    } catch {
+      setErrorMsg("Connection error. Please try again or email directly.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -174,12 +196,21 @@ export const ContactSection: React.FC = () => {
               />
             </div>
 
+            {errorMsg && (
+              <div className="font-code text-xs text-rose-400 bg-rose-950/40 p-3 rounded-xl border border-rose-500/30">
+                {errorMsg}
+              </div>
+            )}
+
             <button
               type="submit"
+              disabled={loading}
               data-magnetic
-              className="w-full py-4 rounded-xl bg-[#C43859] text-[#F5EBE6] font-code text-xs tracking-widest uppercase font-semibold hover:bg-[#8B1E3F] transition-colors shadow-lg shadow-[#8B1E3F]/40 flex items-center justify-center gap-2"
+              className="w-full py-4 rounded-xl bg-[#C43859] text-[#F5EBE6] font-code text-xs tracking-widest uppercase font-semibold hover:bg-[#8B1E3F] transition-colors shadow-lg shadow-[#8B1E3F]/40 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {submitted ? (
+              {loading ? (
+                <span>TRANSMITTING...</span>
+              ) : submitted ? (
                 <>
                   <Check className="w-4 h-4 text-emerald-300" />
                   <span>TRANSMISSION RECEIVED</span>
