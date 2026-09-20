@@ -24,27 +24,43 @@ export const ContactSection: React.FC = () => {
     setErrorMsg("");
 
     try {
-      const res = await fetch("/api/contact", {
+      // 1. Direct browser fetch to FormSubmit
+      const res = await fetch("https://formsubmit.co/ajax/the.ganeshpulikanti@gmail.com", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+          _subject: `[Portfolio Contact] New message from ${formData.name}`,
+          _captcha: "false",
+        }),
       });
 
       const data = await res.json();
 
-      if (res.ok && data.success) {
+      if (res.ok && (data.success === "true" || data.success === true)) {
         setSubmitted(true);
-        if (data.fallback && data.mailtoUrl) {
-          // Open default mail client pre-filled with the message
-          window.location.href = data.mailtoUrl;
-        }
         setFormData({ name: "", email: "", message: "" });
         setTimeout(() => setSubmitted(false), 5000);
       } else {
-        setErrorMsg("Failed to transmit. Please email directly.");
+        // 2. Direct fallback to user mail client
+        const subject = encodeURIComponent(`Portfolio Message from ${formData.name}`);
+        const body = encodeURIComponent(`Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`);
+        window.location.href = `mailto:the.ganeshpulikanti@gmail.com?subject=${subject}&body=${body}`;
+        setSubmitted(true);
+        setFormData({ name: "", email: "", message: "" });
       }
     } catch {
-      setErrorMsg("Connection error. Please try again or email directly.");
+      // Direct fallback to user mail client
+      const subject = encodeURIComponent(`Portfolio Message from ${formData.name}`);
+      const body = encodeURIComponent(`Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`);
+      window.location.href = `mailto:the.ganeshpulikanti@gmail.com?subject=${subject}&body=${body}`;
+      setSubmitted(true);
+      setFormData({ name: "", email: "", message: "" });
     } finally {
       setLoading(false);
     }
