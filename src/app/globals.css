@@ -1,0 +1,128 @@
+@import "tailwindcss";
+
+:root {
+  --background: #0A0406;
+  --foreground: #F5EBE6;
+  
+  --wine-dark: #0A0406;
+  --wine-deep: #16080E;
+  --wine-card: #200B14;
+  --wine-border: rgba(196, 56, 89, 0.18);
+  --wine-accent: #8B1E3F;
+  --wine-vibrant: #C43859;
+  
+  --cream-warm: #F5EBE6;
+  --cream-muted: #B8ADA8;
+  --cream-dark: #6E635F;
+}
+
+@theme inline {
+  --color-wine-dark: var(--wine-dark);
+  --color-wine-deep: var(--wine-deep);
+  --color-wine-card: var(--wine-card);
+  --color-wine-border: var(--wine-border);
+  --color-wine-accent: var(--wine-accent);
+  --color-wine-vibrant: var(--wine-vibrant);
+  
+  --color-cream-warm: var(--cream-warm);
+  --color-cream-muted: var(--cream-muted);
+  --color-cream-dark: var(--cream-dark);
+  
+  --font-serif: var(--font-cormorant), Georgia, serif;
+  --font-sans: var(--font-jakarta), system-ui, sans-serif;
+  --font-mono: var(--font-space-mono), monospace;
+}
+
+html, body {
+  background-color: var(--wine-dark);
+  color: var(--cream-warm);
+  font-family: var(--font-jakarta), system-ui, sans-serif;
+  overflow-x: hidden;
+  selection-background-color: #8B1E3F;
+  selection-color: #F5EBE6;
+}
+
+::selection {
+  background-color: rgba(196, 56, 89, 0.4);
+  color: #F5EBE6;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0A0406;
+}
+::-webkit-scrollbar-thumb {
+  background: #200B14;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #8B1E3F;
+}
+
+/* Hide scrollbar utility */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Grain Overlay Texture */
+.grain-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 999;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* Editorial Serif & Display Styles */
+.font-display {
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-weight: 300;
+  letter-spacing: -0.03em;
+}
+
+.font-sans-clean {
+  font-family: var(--font-jakarta), system-ui, sans-serif;
+}
+
+.font-code {
+  font-family: var(--font-space-mono), monospace;
+}
+
+/* Subtle Wine Glows */
+.glow-wine {
+  box-shadow: 0 0 50px -10px rgba(196, 56, 89, 0.25);
+}
+
+.text-gradient-cream {
+  background: linear-gradient(135deg, #F5EBE6 0%, #D4C8C2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-wine {
+  background: linear-gradient(135deg, #F5EBE6 20%, #C43859 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Canvas Container */
+.canvas-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 1;
+}
