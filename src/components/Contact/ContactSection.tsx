@@ -85,7 +85,7 @@ export const ContactSection: React.FC = () => {
             {/* Social Channels */}
             <div className="flex flex-wrap gap-4 pt-4">
               <a
-                href="https://github.com/pulikantiganesh"
+                href="https://github.com/GaneshPulikanti"
                 target="_blank"
                 rel="noopener noreferrer"
                 data-magnetic

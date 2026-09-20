@@ -1,45 +1,44 @@
-export interface Achievement {
+export interface EngineeringPillar {
   id: string;
-  metric: number;
-  prefix?: string;
-  suffix?: string;
-  label: string;
+  code: string;
+  title: string;
+  tagline: string;
   description: string;
   category: string;
 }
 
-export const ACHIEVEMENTS: Achievement[] = [
+export const PHILOSOPHY_PILLARS: EngineeringPillar[] = [
   {
-    id: "hackathons",
-    metric: 12,
-    suffix: "+",
-    label: "Hackathon Victories",
-    description: "National & State level coding competitions won across AI, Agri-Tech, and Web innovation.",
-    category: "RECOGNITION",
+    id: "realtime-ai",
+    code: "01",
+    title: "Sub-100ms Multimodal AI",
+    tagline: "Voice & Real-time Web Canvas",
+    description: "Architecting streaming LLM pipelines, low-latency voice synthesis, vector search context, and dynamic UI rendering for instant human-AI dialogue.",
+    category: "ARTIFICIAL INTELLIGENCE",
   },
   {
-    id: "projects",
-    metric: 25,
-    suffix: "+",
-    label: "Production Deployments",
-    description: "Full-stack AI models, mobile apps, and enterprise web solutions deployed to live users.",
-    category: "ENGINEERING",
+    id: "mobile-systems",
+    code: "02",
+    title: "Native Android & Offline-First",
+    tagline: "High-Performance Mobile Apps",
+    description: "Building production release Android APKs with Capacitor 6, background audio MediaSession controls, and Dexie IndexedDB offline caching.",
+    category: "MOBILE ENGINEERING",
   },
   {
-    id: "accuracy",
-    metric: 99,
-    suffix: "%",
-    label: "System Reliability",
-    description: "Optimized model inferences and fault-tolerant architecture achieving high uptime.",
-    category: "PERFORMANCE",
+    id: "agri-vision",
+    code: "03",
+    title: "Agri-Tech & Edge Computer Vision",
+    tagline: "Low-Bandwidth Rural Solutions",
+    description: "Deploying lightweight MobileNet and OpenCV vision models tailored for offline leaf disease identification and multi-lingual voice guidance.",
+    category: "COMPUTER VISION",
   },
   {
-    id: "contributions",
-    metric: 100,
-    prefix: ">",
-    suffix: "K",
-    label: "Lines of Clean Code",
-    description: "Written in TypeScript, Python, Dart, C++, and Rust for open-source and proprietary software.",
-    category: "OPEN SOURCE",
+    id: "modern-web",
+    code: "04",
+    title: "High-Performance Full-Stack",
+    tagline: "Interactive 3D & Resilient APIs",
+    description: "Crafting immersive 60 FPS user experiences with Next.js, Three.js, GSAP smooth motion, and resilient FastAPI backend microservices.",
+    category: "FULL-STACK ARCHITECTURE",
   },
 ];
+
