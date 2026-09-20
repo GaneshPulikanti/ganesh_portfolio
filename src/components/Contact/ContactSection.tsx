@@ -30,8 +30,14 @@ export const ContactSection: React.FC = () => {
         body: JSON.stringify(formData),
       });
 
-      if (res.ok) {
+      const data = await res.json();
+
+      if (res.ok && data.success) {
         setSubmitted(true);
+        if (data.fallback && data.mailtoUrl) {
+          // Open default mail client pre-filled with the message
+          window.location.href = data.mailtoUrl;
+        }
         setFormData({ name: "", email: "", message: "" });
         setTimeout(() => setSubmitted(false), 5000);
       } else {
